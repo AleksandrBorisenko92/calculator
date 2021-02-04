@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        select {
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            font-size: 20px;
+            margin: 30px;
+            background: chartreuse;
+            border: 2px solid;
+            border-radius: 5px;
+        }
+        .btn {
+            width: 100px;
+            height: 40px;
+            background: brown;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="select_area"></div>
+<script>
+    var selectArea = document.createElement('div');
+    var select1 = document.createElement('select');
+    select1.classList.add('select1');
+    select1.id = 'select1';
+    var select2 = document.createElement('select');
+    select2.classList.add('select2');
+    select2.id = 'select2';
+    var btn = document.createElement('button');
+    btn.classList.add('btn');
+    btn.innerText = 'check';
+
+    for (let i = 2; i < 32; i = i+2) {
+        var options1 = document.createElement('option');
+        options1.innerText = i;
+        select1.append(options1);
+    }
+
+    for (let j = 2; j < 32; j = j+2) {
+        var options2 = document.createElement('option');
+        options2.innerText = j;
+        select2.append(options2);
+    }
+
+    options1.setAttribute('selected', 'selected');
+    options2.setAttribute('selected', 'selected');
+    selectArea.append(select1);
+    selectArea.append(select2);
+    selectArea.append(btn);
+    var intoHtml = document.querySelector('#select_area');
+    intoHtml.append(selectArea);
+    document.body.append(intoHtml);
+
+    var area;
+    var bigPacks = 32;
+    var smallPacks = 24;
+    // var btn = document.querySelector('btn');
+    btn.onclick = function () {
+        var opt1 = document.getElementById('select1');
+        var sel1 = opt1.options[opt1.selectedIndex].text;
+        var opt2 = document.getElementById('select2');
+        var sel2 = opt2.options[opt2.selectedIndex].text;
+        area = sel1 * sel2;
+
+        var calcBigPacks = parseInt(area / bigPacks);
+        var calcSmallPacks = parseInt(area / smallPacks);
+        var remainderBigPacks = area - calcBigPacks * bigPacks;
+        var remainderSmallPacks = area - calcSmallPacks * smallPacks;
+
+        for (var i = 0; i <= 10; i++) {
+            for (var j = 0; j <= 10; j++) {
+                if ((bigPacks * i + smallPacks * j === area) /* && i > j  ----  не выполняется условие, и всегда выбирает вариант, где берет упаковку по 6 штук*/) {
+                    return alert("You will need" + ' ' + i + ' ' + "packs of 8pcs, " + j + ' ' + "packs of 6pcs.");
+                } else if ((bigPacks * i === area && i !== 0)) {
+                    return alert("You will need" + ' ' + i + ' ' + "packs of 8pcs, " + j + ' ' + "packs of 6pcs.");
+                } else if ((smallPacks * j === area && j !== 0)) {
+                    return alert("You will need" + ' ' + i + ' ' + "packs of 8pcs, " + j + ' ' + "packs of 6pcs.");
+                } else if (bigPacks * i > area && remainderBigPacks < 32) {
+                    return alert("You will need" + ' ' + i + ' ' + "packs of 8pcs, " + j + ' ' + "packs of 6pcs.");
+                } else if (area < bigPacks && area > smallPacks) {
+                    return alert("You will need" + ' ' + 1 + ' ' + "packs of 8pcs, " + 0 + ' ' + "packs of 6pcs.");
+                } else if (area < smallPacks) {
+                    return alert("You will need" + ' ' + 0 + ' ' + "packs of 8pcs, " + 1 + ' ' + "packs of 6pcs.");
+                }
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
