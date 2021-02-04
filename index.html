@@ -72,8 +72,8 @@
         var remainderBigPacks = area - calcBigPacks * bigPacks;
         var remainderSmallPacks = area - calcSmallPacks * smallPacks;
 
-        for (var i = 0; i <= 10; i++) {
-            for (var j = 0; j <= 10; j++) {
+        for (var i = 0; i <= 32; i++) {
+            for (var j = 0; j <= 32; j++) {
                 if ((bigPacks * i + smallPacks * j === area) /* && i > j  ----  не выполняется условие, и всегда выбирает вариант, где берет упаковку по 6 штук*/) {
                     return alert("You will need" + ' ' + i + ' ' + "packs of 8pcs, " + j + ' ' + "packs of 6pcs.");
                 } else if ((bigPacks * i === area && i !== 0)) {
